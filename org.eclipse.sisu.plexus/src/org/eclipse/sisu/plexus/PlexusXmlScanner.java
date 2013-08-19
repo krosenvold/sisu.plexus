@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.sisu.plexus;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
@@ -128,7 +129,8 @@ final class PlexusXmlScanner
     {
         try
         {
-            final InputStream in = Streams.open( url );
+            final InputStream org = Streams.open( url );
+            BufferedInputStream in = new BufferedInputStream( org, 32768 );
             try
             {
                 final MXParser parser = new MXParser();
@@ -181,7 +183,9 @@ final class PlexusXmlScanner
     {
         try
         {
-            final InputStream in = Streams.open( url );
+
+            final InputStream org = Streams.open( url );
+            BufferedInputStream in = new BufferedInputStream( org, 32768 );
             try
             {
                 final MXParser parser = new MXParser();
